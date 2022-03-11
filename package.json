@@ -1,0 +1,55 @@
+{
+	"name": "box-drawing-sidebar",
+	"displayName": "Box Drawing Sidebar",
+	"version": "0.0.1",
+	"description": "Sidebar containing Box Drawing characters to insert",
+	"categories": [
+		"Other"
+	],
+	"publisher": "esdmr",
+	"browser": "./build/extension.js",
+	"scripts": {
+		"vscode:prepublish": "pnpm run build",
+		"build": "rollup --config rollup.config.js"
+	},
+	"capabilities": {
+		"untrustedWorkspaces": {
+			"supported": true
+		}
+	},
+	"contributes": {
+		"viewsContainers": {
+			"activitybar": [
+				{
+					"id": "box-drawing-sidebar",
+					"title": "Box Drawing",
+					"icon": "resources/sidebar_icon.svg"
+				}
+			]
+		},
+		"views": {
+			"box-drawing-sidebar": [
+				{
+					"id": "box-drawing-sidebar.box-drawing",
+					"name": "Box Drawing",
+					"icon": "resources/sidebar_icon.svg",
+					"type": "webview",
+					"visibility": "visible"
+				}
+			]
+		}
+	},
+	"activationEvents": [
+		"onView:box-drawing-sidebar.box-drawing"
+	],
+	"devDependencies": {
+		"@types/vscode": "^1.65.0",
+		"esbuild": "^0.14.25",
+		"rollup": "^2.69.2",
+		"rollup-plugin-esbuild": "^4.8.2",
+		"rollup-plugin-string": "^3.0.0"
+	},
+	"engines": {
+		"vscode": "^1.65.0"
+	}
+}

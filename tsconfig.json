@@ -1,0 +1,15 @@
+{
+	"compilerOptions": {
+		"module": "ESNext",
+		"target": "ESNext",
+		"outDir": "dist",
+		"lib": [
+			"es6",
+			"WebWorker"
+		],
+		"sourceMap": true,
+		"rootDir": "src",
+		"strict": true,
+		"moduleResolution": "node"
+	}
+}

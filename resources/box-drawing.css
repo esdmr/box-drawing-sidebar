@@ -1,0 +1,54 @@
+:root {
+	--cmd-width: 1em;
+	--cmd-ratio: 2.5;
+}
+
+.cmd {
+	font-size: 2em;
+	padding: 0;
+	border: 0;
+	background-color: transparent;
+	color: var(--vscode-foreground);
+	width: var(--cmd-width);
+	height: calc(var(--cmd-width) * var(--cmd-ratio));
+	display: inline-block;
+	font-family: var(--vscode-editor-font-family);
+	vertical-align: middle;
+	flex-shrink: 0;
+	user-select: none;
+	overflow: hidden;
+}
+
+.cmd:hover {
+	background-color: var(--vscode-list-hoverBackground);
+	color: var(--vscode-list-warningForeground);
+	z-index: 1;
+	transform-origin: 50% 50%;
+	transform: scale(125%);
+}
+
+.cmd-auto-sized {
+	width: auto;
+	height: auto;
+}
+
+.line {
+	display: flex;
+	flex-direction: row;
+}
+
+.column {
+	display: flex;
+	flex-direction: column;
+}
+
+.group {
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+}
+
+.group-container {
+	display: flex;
+	flex-direction: column;
+}
