@@ -12,9 +12,9 @@ interface RenderResult {
 }
 
 class ResourceResolver {
-	constructor (private readonly extensionUri: vscode.Uri) { }
+	constructor(private readonly extensionUri: vscode.Uri) {}
 
-	getResourceUri (...pathSegments: readonly string[]) {
+	getResourceUri(...pathSegments: readonly string[]) {
 		return vscode.Uri.joinPath(this.extensionUri, 'resources', ...pathSegments);
 	}
 }
@@ -22,29 +22,29 @@ class ResourceResolver {
 class BoxDrawingViewProvider implements vscode.WebviewViewProvider {
 	private view: vscode.WebviewView | undefined;
 	private lastActiveTextEditor = vscode.window.activeTextEditor;
-	private readonly cbSet = new Set<(e: SnippetViewResult) => void>();
+	private readonly cbSet = new Set<(result: SnippetViewResult) => void>();
 
-	constructor (
+	constructor(
 		private readonly resources: ResourceResolver,
 		disposables?: vscode.Disposable[],
 	) {
-		vscode.window.onDidChangeActiveTextEditor((editor) => {
+		vscode.window.onDidChangeActiveTextEditor(editor => {
 			if (editor) {
 				this.lastActiveTextEditor = editor;
 			}
 		}, disposables);
 	}
 
-	get webviewView () {
+	get webviewView() {
 		return this.view;
 	}
 
-	resolveWebviewView (webviewView: vscode.WebviewView) {
+	resolveWebviewView(webviewView: vscode.WebviewView) {
 		this.view = webviewView;
 
 		webviewView.webview.options = {
 			localResourceRoots: [this.resources.getResourceUri()],
-			enableScripts: true
+			enableScripts: true,
 		};
 
 		console.log('[box-drawing] webview was resolved');
@@ -54,51 +54,62 @@ class BoxDrawingViewProvider implements vscode.WebviewViewProvider {
 		});
 
 		const timeout = setTimeout(() => {
-			webviewView.webview.html = 'Failed to load webview html file (timed out).';
+			webviewView.webview.html = 'Failed to load webview html file.';
+			console.error('Failed to load webview html file:', 'Timed out');
 		}, 100);
 
 		const textDecoder = new TextDecoder();
 
 		vscode.workspace.fs.readFile(this.resources.getResourceUri('box-drawing.html'))
-			.then((array) => {
+			.then(array => {
 				webviewView.webview.html = textDecoder.decode(array)
-					.replace(/\$\{\s*\.\s*cspSource\s*\}/g, webviewView.webview.cspSource)
+					.replace(/\${\s*\.\s*cspSource\s*}/g, webviewView.webview.cspSource)
+					// eslint-disable-next-line no-template-curly-in-string
 					.replace(/\b(href|src)="\.\//g, '$1="${.resources}/')
-					.replace(/\$\{\s*\.\s*resources\s*\}/g, webviewView.webview.asWebviewUri(this.resources.getResourceUri()).toString());
+					.replace(/\${\s*\.\s*resources\s*}/g, webviewView.webview.asWebviewUri(this.resources.getResourceUri()).toString());
 
+				clearTimeout(timeout);
+			},
+			error => {
+				webviewView.webview.html = 'Failed to load webview html file.';
+				console.error('Failed to load webview html file:', error);
 				clearTimeout(timeout);
 			});
 
-		webviewView.webview.onDidReceiveMessage((e: SnippetViewResult) => {
-			this.cbSet.forEach((cb) => { cb(e); });
-			this.messageReceive(e);
+		webviewView.webview.onDidReceiveMessage((result: SnippetViewResult) => {
+			for (const cb of this.cbSet) {
+				cb(result);
+			}
+
+			this.messageReceive(result);
 		});
 	}
 
-	private messageReceive (message: SnippetViewResult) {
-		if (message.type === 'insertSnippet') {
-			const editor = this.lastActiveTextEditor;
-			if (editor) {
-				editor.insertSnippet(new vscode.SnippetString(message.snippet.replace(/\\\n/g, '\\n'))).then(
-					() => { },
-					err => {
-						vscode.window.showWarningMessage(`Unable to insert symbol, ${err}`);
-					}
-				);
-			} else {
-				vscode.window.showWarningMessage('Unable get document to insert symbol into');
-			}
-		}
-	}
-
-	onDidReceiveMessage (cb: (e: SnippetViewResult) => void) {
+	onDidReceiveMessage(cb: (result: SnippetViewResult) => void) {
 		this.cbSet.add(cb);
 
 		return new vscode.Disposable(() => this.cbSet.delete(cb));
 	}
+
+	private messageReceive(message: SnippetViewResult) {
+		if (message.type === 'insertSnippet') {
+			const editor = this.lastActiveTextEditor;
+			if (editor) {
+				editor.insertSnippet(new vscode.SnippetString(message.snippet.replace(/\\\n/g, '\\n'))).then(
+					// eslint-disable-next-line @typescript-eslint/no-empty-function
+					() => {},
+					error => {
+						void vscode.window.showWarningMessage(`Unable to insert symbol: ${String(error)}`);
+					},
+				);
+			} else {
+				void vscode.window.showWarningMessage('Unable get document to insert symbol into');
+			}
+		}
+	}
 }
 
-export function activate (context: vscode.ExtensionContext) {
+export function activate(context: vscode.ExtensionContext) {
 	console.log('[box-drawing] is activated');
 
 	const resources = new ResourceResolver(context.extensionUri);
@@ -109,6 +120,6 @@ export function activate (context: vscode.ExtensionContext) {
 	));
 }
 
-export function deactivate () {
+export function deactivate() {
 	console.log('[box-drawing] is deactivated');
 }
