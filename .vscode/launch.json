@@ -15,7 +15,7 @@
 				"--extensionDevelopmentKind=web"
 			],
 			"outFiles": [
-				"${workspaceFolder}/dist/web/**/*.js"
+				"${workspaceFolder}/build/**/*.js"
 			]
 		}
 	]
