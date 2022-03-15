@@ -1,122 +1,58 @@
-/// <reference types="vscode"/>
-const vscode = globalThis.acquireVsCodeApi?.() ?? {
-	postMessage: (...args) => { console.log('[post-message]', ...args); }
-};
+/* eslint-env browser */
+
+import vscode from './vscode.js';
 
 const chars = [
-	[
-		[
-			['┌', '─', '┐'],
-			['│', ' ', '│'],
-			['└', '─', '┘'],
-		],
-		[
-			['╭', '┬', '╮'],
-			['├', '┼', '┤'],
-			['╰', '┴', '╯'],
-		],
-		[
-			['', '╷', ''],
-			['╶', '┼', '╴'],
-			['', '╵', ''],
-		],
-		[
-			['╌', '╌', '╌'],
-			['┄', '┄', '┄'],
-			['┈', '┈', '┈'],
-		],
-		[
-			['╎', '┆', '┊'],
-			['╎', '┆', '┊'],
-			['╎', '┆', '┊'],
-		],
-	],
-
-	[
-		[
-			['┏', '━', '┓'],
-			['┃', ' ', '┃'],
-			['┗', '━', '┛'],
-		],
-		[
-			['┏', '┳', '┓'],
-			['┣', '╋', '┫'],
-			['┗', '┻', '┛'],
-		],
-		[
-			['', '╻', ''],
-			['╺', '╋', '╸'],
-			['', '╹', ''],
-		],
-		[
-			['╍', '╍', '╍'],
-			['┅', '┅', '┅'],
-			['┉', '┉', '┉'],
-		],
-		[
-			['╏', '┇', '┋'],
-			['╏', '┇', '┋'],
-			['╏', '┇', '┋'],
-		],
-	],
-
-	[
-		[
-			['╔', '═', '╗'],
-			['║', ' ', '║'],
-			['╚', '═', '╝'],
-		],
-		[
-			['╔', '╦', '╗'],
-			['╠', '╬', '╣'],
-			['╚', '╩', '╝'],
-		],
-		[
-			['╲', '', '╱'],
-			['', '╳', ''],
-			['╱', '', '╲'],
-		],
-	],
+	['┌', '─', '┐', '│', ' ', '│', '└', '─', '┘'],
+	['╭', '┬', '╮', '├', '┼', '┤', '╰', '┴', '╯'],
+	['', '╷', '', '╶', '┼', '╴', '', '╵', ''],
+	['╌', '╌', '╌', '┄', '┄', '┄', '┈', '┈', '┈'],
+	['╎', '┆', '┊', '╎', '┆', '┊', '╎', '┆', '┊'],
+	['┏', '━', '┓', '┃', ' ', '┃', '┗', '━', '┛'],
+	['┏', '┳', '┓', '┣', '╋', '┫', '┗', '┻', '┛'],
+	['', '╻', '', '╺', '╋', '╸', '', '╹', ''],
+	['╍', '╍', '╍', '┅', '┅', '┅', '┉', '┉', '┉'],
+	['╏', '┇', '┋', '╏', '┇', '┋', '╏', '┇', '┋'],
+	['╔', '═', '╗', '║', ' ', '║', '╚', '═', '╝'],
+	['╔', '╦', '╗', '╠', '╬', '╣', '╚', '╩', '╝'],
+	['╲', '', '╱', '', '╳', '', '╱', '', '╲'],
 ];
 
 const sizeTest = document.createElement('button');
 sizeTest.classList.add('cmd', 'cmd-auto-sized');
-sizeTest.innerText = '┼';
+sizeTest.textContent = '┼';
 sizeTest.style.visibility = 'hidden';
 document.body.append(sizeTest);
-const {width} = sizeTest.getBoundingClientRect();
+const {width, height} = sizeTest.getBoundingClientRect();
 sizeTest.remove();
 document.body.style.setProperty('--cmd-width', `${width}px`);
+document.body.style.setProperty('--cmd-height', `${height}px`);
 
-const elemGroupContainer = document.createElement('div');
-document.body.append(elemGroupContainer);
-elemGroupContainer.classList.add('group-container');
+const gridElement = document.createElement('div');
+document.body.append(gridElement);
+gridElement.classList.add('grid');
 
-for (const blockLine of chars) {
-	const elemGroup = document.createElement('div');
-	elemGroupContainer.append(elemGroup);
-	elemGroup.classList.add('group');
+for (const item of chars) {
+	const subGridElement = document.createElement('div');
+	gridElement.append(subGridElement);
+	subGridElement.classList.add('subgrid');
 
-	for (const block of blockLine) {
-		const elemColumn = document.createElement('div');
-		elemGroup.append(elemColumn);
-		elemColumn.classList.add('column');
+	for (const char of item) {
+		const cmdElement = document.createElement('button');
+		subGridElement.append(cmdElement);
+		cmdElement.classList.add('cmd');
 
-		for (const line of block) {
-			const elemLine = document.createElement('div');
-			elemColumn.append(elemLine);
-			elemLine.classList.add('line');
+		if (char === '') {
+			cmdElement.disabled = true;
+			cmdElement.ariaHidden = 'true';
+			cmdElement.setAttribute('role', 'presentation');
+		} else {
+			cmdElement.textContent = char === ' ' ? '␠' : char;
 
-			for (const char of line) {
-				const elemCmd = document.createElement('button');
-				elemLine.append(elemCmd);
-				elemCmd.classList.add('cmd');
-				elemCmd.innerText = char === ' ' ? '␠' : char;
-				elemCmd.onclick = () => vscode.postMessage?.({
-					type: 'insertSnippet',
-					snippet: char,
-				});
-			}
+			cmdElement.addEventListener('click', () => vscode.postMessage({
+				type: 'insertSnippet',
+				snippet: char,
+			}));
 		}
 	}
 }
