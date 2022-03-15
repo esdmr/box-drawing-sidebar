@@ -7,9 +7,13 @@ const config = {
 	output: {
 		file: 'build/extension.js',
 		format: 'cjs',
+		compact: true,
+		generatedCode: 'es2015',
+		interop: 'auto',
 		sourcemap: true,
 	},
 	external: 'vscode',
+	strictDeprecations: true,
 	plugins: [
 		esbuild({
 			minify: true,
