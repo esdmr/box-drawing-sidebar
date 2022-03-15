@@ -52,5 +52,10 @@
 	},
 	"engines": {
 		"vscode": "^1.65.0"
+	},
+	"xo": {
+		"rules": {
+			"import/extensions": "off"
+		}
 	}
 }
