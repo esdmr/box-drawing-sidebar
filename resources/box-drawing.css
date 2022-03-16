@@ -22,6 +22,10 @@
 	transform: scale(125%);
 }
 
+.cmd-hidden {
+	visibility: hidden;
+}
+
 .cmd-auto-sized {
 	width: auto;
 	height: auto;

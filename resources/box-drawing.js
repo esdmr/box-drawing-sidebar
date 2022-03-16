@@ -43,6 +43,7 @@ for (const item of chars) {
 		cmdElement.classList.add('cmd');
 
 		if (char === '') {
+			cmdElement.classList.add('cmd-hidden');
 			cmdElement.disabled = true;
 			cmdElement.ariaHidden = 'true';
 			cmdElement.setAttribute('role', 'presentation');
