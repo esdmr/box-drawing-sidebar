@@ -10,7 +10,7 @@
 	"browser": "./build/extension.js",
 	"scripts": {
 		"vscode:prepublish": "pnpm run build",
-		"build": "rollup --config rollup.config.js"
+		"build": "rollup --config rollup.config.mjs"
 	},
 	"capabilities": {
 		"untrustedWorkspaces": {
