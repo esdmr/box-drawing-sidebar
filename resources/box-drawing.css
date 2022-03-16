@@ -6,8 +6,8 @@
 	height: var(--cmd-height, 2.5em);
 
 	background: transparent;
-	color: var(--vscode-foreground);
-	font: 2em var(--vscode-editor-font-family);
+	color: var(--vscode-foreground, currentcolor);
+	font: 2em var(--vscode-editor-font-family, monospace);
 
 	vertical-align: middle;
 	overflow: hidden;
@@ -17,8 +17,8 @@
 
 .cmd:hover {
 	z-index: 1;
-	background: var(--vscode-list-hoverBackground);
-	color: var(--vscode-list-warningForeground);
+	background: var(--vscode-list-hoverBackground, transparent);
+	color: var(--vscode-list-warningForeground, gold);
 	transform: scale(125%);
 }
 
