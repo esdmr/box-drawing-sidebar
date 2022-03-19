@@ -1,3 +1,7 @@
+.scroll-disabled {
+	overflow: hidden;
+}
+
 .cmd {
 	display: inline-block;
 	border: 0;
@@ -39,4 +43,38 @@
 .grid {
 	display: flex;
 	flex-flow: row wrap;
+}
+
+dialog {
+	top: 10%;
+	bottom: unset;
+	max-width: unset;
+	max-height: unset;
+	border: none;
+	padding: 0.5em;
+	background: var(--vscode-menu-background, white);
+	color: var(--vscode-menu-foreground, black);
+	user-select: none;
+}
+
+dialog::backdrop {
+	background: transparent;
+}
+
+main {
+	transition: opacity 250ms cubic-bezier(0.075, 0.82, 0.165, 1);
+}
+
+@media (prefers-reduced-motion) {
+	main {
+		transition: none;
+	}
+}
+
+dialog[open] + main {
+	opacity: 20%;
+}
+
+dialog > p {
+	margin: 0;
 }

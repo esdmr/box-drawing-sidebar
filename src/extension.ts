@@ -12,6 +12,7 @@ class ResourceResolver {
 
 class BoxDrawingViewProvider extends vscode.Disposable implements vscode.WebviewViewProvider {
 	private lastActiveTextEditor = vscode.window.activeTextEditor;
+	private lastWebview: vscode.Webview | undefined = undefined;
 	private readonly messageHandler = new MessageHandler();
 	private readonly disposables: vscode.Disposable[] = [this.messageHandler];
 
@@ -20,9 +21,16 @@ class BoxDrawingViewProvider extends vscode.Disposable implements vscode.Webview
 			disposeAll(this.disposables);
 		});
 
-		vscode.window.onDidChangeActiveTextEditor(editor => {
+		vscode.window.onDidChangeActiveTextEditor(async editor => {
+			console.log('[box-drawing]', 'Active text editor was changed');
 			this.lastActiveTextEditor = editor;
+			await this.activeTextEditorChanged();
 		}, this.disposables);
+
+		this.messageHandler.getEvent('loaded')(async () => {
+			console.log('[box-drawing]', 'Webview is loaded');
+			await this.activeTextEditorChanged();
+		});
 
 		this.messageHandler.getEvent('insertSnippet')(async message => {
 			try {
@@ -41,6 +49,7 @@ class BoxDrawingViewProvider extends vscode.Disposable implements vscode.Webview
 
 	async resolveWebviewView(webviewView: vscode.WebviewView) {
 		const {webview} = webviewView;
+		this.lastWebview = webview;
 
 		webview.options = {
 			localResourceRoots: [this.resources.getResourceUri()],
@@ -55,12 +64,17 @@ class BoxDrawingViewProvider extends vscode.Disposable implements vscode.Webview
 
 		webviewView.onDidDispose(() => {
 			console.log('[box-drawing]', 'Webview was disposed');
+			this.lastWebview = undefined;
+		});
+
+		webview.onDidReceiveMessage(result => {
+			this.messageHandler.fire(result);
 		});
 
 		const timeout = setTimeout(() => {
 			webview.html = 'Failed to load webview html file.';
 			console.error('[box-drawing]', 'Failed to load webview html file:', 'Timed out');
-		}, 100);
+		}, 250);
 
 		const textDecoder = new TextDecoder();
 
@@ -78,9 +92,12 @@ class BoxDrawingViewProvider extends vscode.Disposable implements vscode.Webview
 		} finally {
 			clearTimeout(timeout);
 		}
+	}
 
-		webview.onDidReceiveMessage(result => {
-			this.messageHandler.fire(result);
+	private async activeTextEditorChanged() {
+		await this.lastWebview?.postMessage({
+			type: 'onDidChangeActiveTextEditor',
+			isTextEditorActive: this.lastActiveTextEditor !== undefined,
 		});
 	}
 }

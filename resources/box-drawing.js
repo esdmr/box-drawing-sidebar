@@ -1,6 +1,47 @@
 /* eslint-env browser */
-
 import vscode from './vscode.js';
+import {MessageHandler} from './message.js';
+
+const messageHandler = new MessageHandler();
+
+const dialog = /** @type {HTMLDialogElement} */(document.querySelector('#no-open-documents'));
+
+// The dialog is a modal. The user should not be able to close it.
+dialog.addEventListener('cancel', event => {
+	event.preventDefault();
+});
+
+/**
+ * @type {number | undefined}
+ */
+let pendingDialogTimeout;
+
+messageHandler.addEventListener('onDidChangeActiveTextEditor', ({detail}) => {
+	if (pendingDialogTimeout !== undefined) {
+		clearTimeout(pendingDialogTimeout);
+		pendingDialogTimeout = undefined;
+	}
+
+	// Switching between two open text editors sends two messages, one saying
+	// that the current editor is not a text editor, and the other saying that
+	// it is. By waiting just enough, we can avoid flashing the dialog.
+	//
+	// FIXME: There might be a better way to do this (possibly in the
+	// extension)?
+	pendingDialogTimeout = setTimeout(() => {
+		if (detail.isTextEditorActive && dialog.open) {
+			dialog.close();
+			document.documentElement.classList.remove('scroll-disabled');
+		} else if (!detail.isTextEditorActive && !dialog.open) {
+			dialog.showModal();
+			document.documentElement.classList.add('scroll-disabled');
+		}
+	}, 100);
+});
+
+vscode.onDidReceiveMessage(message => {
+	messageHandler.fire(message);
+});
 
 const chars = [
 	['┌', '─', '┐', '│', ' ', '│', '└', '─', '┘'],
@@ -18,17 +59,11 @@ const chars = [
 	['╲', '', '╱', '', '╳', '', '╱', '', '╲'],
 ];
 
-const sizeTest = document.createElement('button');
-sizeTest.classList.add('cmd', 'cmd-auto-sized');
-sizeTest.textContent = '┼';
-sizeTest.style.visibility = 'hidden';
-document.body.append(sizeTest);
-const {width, height} = sizeTest.getBoundingClientRect();
-sizeTest.remove();
-document.body.style.setProperty('--cmd-width', `${width}px`);
-document.body.style.setProperty('--cmd-height', `${height}px`);
+const {width, height} = getCmdRect();
+document.documentElement.style.setProperty('--cmd-width', `${width}px`);
+document.documentElement.style.setProperty('--cmd-height', `${height}px`);
 
-const gridElement = document.createElement('div');
+const gridElement = document.createElement('main');
 document.body.append(gridElement);
 gridElement.classList.add('grid');
 
@@ -50,10 +85,31 @@ for (const item of chars) {
 		} else {
 			cmdElement.textContent = char === ' ' ? '␠' : char;
 
-			cmdElement.addEventListener('click', () => vscode.postMessage({
-				type: 'insertSnippet',
-				snippet: char,
-			}));
+			cmdElement.addEventListener('click', () => {
+				vscode.postMessage({
+					type: 'insertSnippet',
+					snippet: char,
+				});
+			});
 		}
 	}
+}
+
+// TODO: Provide a way to send a parameter from the extension to webview,
+// specially to avoid the initial first flash.
+vscode.postMessage({
+	type: 'loaded',
+});
+
+function getCmdRect() {
+	const sizeTest = document.createElement('button');
+	sizeTest.classList.add('cmd', 'cmd-auto-sized');
+	sizeTest.textContent = '┼';
+	sizeTest.style.visibility = 'hidden';
+	document.body.append(sizeTest);
+
+	const rect = sizeTest.getBoundingClientRect();
+	sizeTest.remove();
+
+	return rect;
 }

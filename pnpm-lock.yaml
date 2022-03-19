@@ -2,6 +2,7 @@ lockfileVersion: 5.3
 
 specifiers:
   '@types/vscode': ^1.65.0
+  '@typescript/lib-dom': npm:@types/web@^0.0.58
   esbuild: ^0.14.25
   rollup: ^2.69.2
   rollup-plugin-esbuild: ^4.8.2
@@ -9,6 +10,7 @@ specifiers:
 
 devDependencies:
   '@types/vscode': 1.65.0
+  '@typescript/lib-dom': /@types/web/0.0.58
   esbuild: 0.14.25
   rollup: 2.69.2
   rollup-plugin-esbuild: 4.8.2_esbuild@0.14.25+rollup@2.69.2
@@ -131,6 +133,10 @@ packages:
 
   /@types/vscode/1.65.0:
     resolution: {integrity: sha512-wQhExnh2nEzpjDMSKhUvnNmz3ucpd3E+R7wJkOhBNK3No6fG3VUdmVmMOKD0A8NDZDDDiQcLNxe3oGmX5SjJ5w==}
+    dev: true
+
+  /@types/web/0.0.58:
+    resolution: {integrity: sha512-iNbMrzLcrzGJ0fe3XECOZeQynP6qyEzM9DwwXIudwhCqbiAwRRbMFikErR38oqzUAjBJkgJwUg21WefUduKW7w==}
     dev: true
 
   /@typescript-eslint/eslint-plugin/5.15.0_f2c49ce7d0e93ebcfdb4b7d25b131b28:
