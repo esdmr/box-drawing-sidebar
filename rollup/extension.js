@@ -1,9 +1,8 @@
-
-import esbuild from 'rollup-plugin-esbuild';
+import sharedConfig from './shared.js';
 
 /** @type {import('rollup').RollupOptions} */
 const config = {
-	input: 'src/extension.ts',
+	input: 'src/extension/index.ts',
 	output: {
 		file: 'build/extension.js',
 		format: 'cjs',
@@ -13,13 +12,7 @@ const config = {
 		sourcemap: true,
 	},
 	external: 'vscode',
-	strictDeprecations: true,
-	plugins: [
-		esbuild({
-			minify: true,
-			target: 'es2020',
-		}),
-	],
+	...sharedConfig,
 };
 
 export default config;

@@ -3,3 +3,5 @@
 build
 node_modules
 out
+resources/**/*.js
+resources/**/*.js.map

@@ -1,11 +1,9 @@
 {
 	"extends": "../tsconfig.json",
 	"compilerOptions": {
-		"checkJs": true,
-		"rootDir": ".",
 		"lib": [
-			"ESNext",
-			"DOM"
+			"ES2015",
+			"WebWorker"
 		]
 	}
 }

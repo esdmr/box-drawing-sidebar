@@ -10,7 +10,11 @@
 	"browser": "./build/extension.js",
 	"scripts": {
 		"vscode:prepublish": "pnpm run build",
-		"build": "rollup --config rollup.config.mjs"
+		"build": "pnpm run build:extension && pnpm run build:webviews",
+		"build:extension": "rollup --config rollup/extension.js",
+		"build:webviews": "rollup --config rollup/webviews.js",
+		"watch": "pnpm run build:extension -- --watch & pnpm run build:webviews -- --watch",
+		"clean": "bash clean.sh"
 	},
 	"capabilities": {
 		"untrustedWorkspaces": {
@@ -23,7 +27,7 @@
 				{
 					"id": "box-drawing-sidebar",
 					"title": "Box Drawing",
-					"icon": "resources/sidebar_icon.svg"
+					"icon": "resources/icon.svg"
 				}
 			]
 		},
@@ -32,7 +36,7 @@
 				{
 					"id": "box-drawing-sidebar.box-drawing",
 					"name": "Box Drawing",
-					"icon": "resources/sidebar_icon.svg",
+					"icon": "resources/box-drawing/icon.svg",
 					"type": "webview",
 					"visibility": "visible"
 				}
@@ -43,6 +47,7 @@
 		"onView:box-drawing-sidebar.box-drawing"
 	],
 	"devDependencies": {
+		"@types/node": "^17.0.21",
 		"@types/vscode": "^1.65.0",
 		"@typescript/lib-dom": "npm:@types/web@^0.0.58",
 		"esbuild": "^0.14.25",

@@ -1,4 +1,5 @@
 .gitignore
+.vscode-test
 .vscode-test-web/**
 .vscode/**
 **/.eslintrc.json
@@ -8,7 +9,8 @@
 node_modules/**
 out/**
 pnpm-lock.yaml
-rollup.config.js
+rollup/**
 src/**
 vsc-extension-quickstart.md
 webpack.config.js
+TODO.md

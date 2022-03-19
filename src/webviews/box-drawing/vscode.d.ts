@@ -5,7 +5,7 @@ interface VsCodeApi {
 	onDidReceiveMessage (handler: (data: any) => void): void;
 }
 
-export declare global {
+declare global {
 	// eslint-disable-next-line no-var
 	var acquireVsCodeApi: (() => Partial<VsCodeApi>) | undefined;
 }
