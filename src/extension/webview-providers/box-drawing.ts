@@ -72,13 +72,13 @@ export class BoxDrawingViewProvider extends vscode.Disposable implements vscode.
 		const textDecoder = new TextDecoder();
 
 		try {
-			const array = await vscode.workspace.fs.readFile(this.resources.getResourceUri('box-drawing.html'));
+			const array = await vscode.workspace.fs.readFile(this.resources.getResourceUri('box-drawing', 'index.html'));
 
 			webview.html = textDecoder.decode(array)
 				.replace(/\${\s*\.\s*cspSource\s*}/g, webview.cspSource)
 				// eslint-disable-next-line no-template-curly-in-string
 				.replace(/\b(href|src)="\.\//g, '$1="${.resources}/')
-				.replace(/\${\s*\.\s*resources\s*}/g, webview.asWebviewUri(this.resources.getResourceUri()).toString());
+				.replace(/\${\s*\.\s*resources\s*}/g, webview.asWebviewUri(this.resources.getResourceUri('box-drawing')).toString());
 		} catch (error: unknown) {
 			webview.html = 'Failed to load webview html file.';
 			console.error('[box-drawing]', 'Failed to load webview html file:', error);
