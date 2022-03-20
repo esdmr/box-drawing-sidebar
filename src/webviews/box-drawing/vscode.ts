@@ -1,9 +1,9 @@
 /* eslint-env browser */
 interface VsCodeApi {
-	postMessage (message: unknown, transfer?: unknown): void;
-	getState (): void;
-	setState (newState: unknown): void;
-	onDidReceiveMessage (handler: (data: any) => void): void;
+	postMessage(message: unknown, transfer?: unknown): void;
+	getState(): void;
+	setState(newState: unknown): void;
+	onDidReceiveMessage(handler: (data: any) => void): void;
 }
 
 declare global {
