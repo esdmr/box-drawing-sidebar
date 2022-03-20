@@ -15,13 +15,13 @@ export class BoxDrawingViewProvider extends vscode.Disposable implements vscode.
 		});
 
 		vscode.window.onDidChangeActiveTextEditor(async editor => {
-			console.log('[box-drawing]', 'Active text editor was changed');
+			console.log('[box-drawing-sidebar]', '[box-drawing]', 'Active text editor was changed');
 			this.lastActiveTextEditor = editor;
 			await this.activeTextEditorChanged();
 		}, this.disposables);
 
 		this.messageHandler.getEvent('loaded')(async () => {
-			console.log('[box-drawing]', 'Webview is loaded');
+			console.log('[box-drawing-sidebar]', '[box-drawing]', 'Webview is loaded');
 			await this.activeTextEditorChanged();
 		});
 
@@ -35,7 +35,7 @@ export class BoxDrawingViewProvider extends vscode.Disposable implements vscode.
 
 				await editor.insertSnippet(new vscode.SnippetString(snippet));
 			} catch (error: unknown) {
-				console.error('[box-drawing]', 'Failed to insert a snippet:', error);
+				console.error('[box-drawing-sidebar]', '[box-drawing]', 'Failed to insert a snippet:', error);
 			}
 		});
 	}
@@ -49,14 +49,14 @@ export class BoxDrawingViewProvider extends vscode.Disposable implements vscode.
 			enableScripts: true,
 		};
 
-		console.log('[box-drawing]', 'Webview was resolved');
+		console.log('[box-drawing-sidebar]', '[box-drawing]', 'Webview was resolved');
 
 		webviewView.onDidChangeVisibility(() => {
-			console.log('[box-drawing]', 'Webview changed visibility');
+			console.log('[box-drawing-sidebar]', '[box-drawing]', 'Webview changed visibility');
 		});
 
 		webviewView.onDidDispose(() => {
-			console.log('[box-drawing]', 'Webview was disposed');
+			console.log('[box-drawing-sidebar]', '[box-drawing]', 'Webview was disposed');
 			this.lastWebview = undefined;
 		});
 
@@ -66,7 +66,7 @@ export class BoxDrawingViewProvider extends vscode.Disposable implements vscode.
 
 		const timeout = setTimeout(() => {
 			webview.html = 'Failed to load webview html file.';
-			console.error('[box-drawing]', 'Failed to load webview html file:', 'Timed out');
+			console.error('[box-drawing-sidebar]', '[box-drawing]', 'Failed to load webview html file:', 'Timed out');
 		}, 250);
 
 		const textDecoder = new TextDecoder();
@@ -81,7 +81,7 @@ export class BoxDrawingViewProvider extends vscode.Disposable implements vscode.
 				.replace(/\${\s*\.\s*resources\s*}/g, webview.asWebviewUri(this.resources.getResourceUri('box-drawing')).toString());
 		} catch (error: unknown) {
 			webview.html = 'Failed to load webview html file.';
-			console.error('[box-drawing]', 'Failed to load webview html file:', error);
+			console.error('[box-drawing-sidebar]', '[box-drawing]', 'Failed to load webview html file:', error);
 		} finally {
 			clearTimeout(timeout);
 		}

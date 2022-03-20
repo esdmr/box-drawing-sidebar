@@ -13,13 +13,13 @@ declare global {
 
 const vscode: VsCodeApi = {
 	postMessage(message: unknown, transfer: unknown = undefined) {
-		console.log('[box-drawing]', '[postMessage]', message, transfer);
+		console.log('[box-drawing-sidebar]', '[box-drawing]', '[vscodeApiShim.postMessage]', message, transfer);
 	},
 	getState() {
-		console.log('[box-drawing]', '[getState]');
+		console.log('[box-drawing-sidebar]', '[box-drawing]', '[vscodeApiShim.getState]');
 	},
 	setState(newState: unknown) {
-		console.log('[box-drawing]', '[setState]', newState);
+		console.log('[box-drawing-sidebar]', '[box-drawing]', '[vscodeApiShim.setState]', newState);
 	},
 	onDidReceiveMessage(handler: (data: any) => void) {
 		window.addEventListener('message', ({data}) => {
