@@ -1,6 +1,6 @@
 import * as vscode from 'vscode';
 import {MessageHandler} from '../message';
-import {ResourceResolver} from '../resource';
+import type {ResourceResolver} from '../resource';
 import {assert, disposeAll} from '../utils';
 
 export class BoxDrawingViewProvider extends vscode.Disposable implements vscode.WebviewViewProvider {

@@ -1,4 +1,4 @@
-import * as vscode from 'vscode';
+import type { Disposable } from 'vscode';
 
 class AssertionError extends Error {
 	name = 'AssertionError';
@@ -10,7 +10,7 @@ export function assert(condition: boolean, message: string): asserts condition {
 	}
 }
 
-export function disposeAll(disposables: Iterable<vscode.Disposable>) {
+export function disposeAll(disposables: Iterable<Disposable>) {
 	for (const item of disposables) {
 		item.dispose();
 	}
