@@ -3,7 +3,7 @@ import sharedConfig from './shared.js';
 /** @type {import('rollup').RollupOptions} */
 const config = {
 	input: {
-		'box-drawing': 'src/webviews/box-drawing/index.js',
+		'box-drawing': 'src/webviews/box-drawing/index.ts',
 	},
 	output: {
 		dir: 'resources',

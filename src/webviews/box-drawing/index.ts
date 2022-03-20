@@ -1,20 +1,21 @@
 /* eslint-env browser */
-import vscode from './vscode.js';
-import {MessageHandler} from './message.js';
+import vscode from './vscode';
+import {MessageHandler} from './message';
 
 const messageHandler = new MessageHandler();
 
-const dialog = /** @type {HTMLDialogElement} */(document.querySelector('#no-open-documents'));
+const dialog = document.querySelector<HTMLDialogElement>('#no-open-documents');
+
+if (!dialog) {
+	throw new Error('Could not find the dialog');
+}
 
 // The dialog is a modal. The user should not be able to close it.
 dialog.addEventListener('cancel', event => {
 	event.preventDefault();
 });
 
-/**
- * @type {number | undefined}
- */
-let pendingDialogTimeout;
+let pendingDialogTimeout: ReturnType<typeof setTimeout> | undefined;
 
 messageHandler.addEventListener('onDidChangeActiveTextEditor', ({detail}) => {
 	if (pendingDialogTimeout !== undefined) {

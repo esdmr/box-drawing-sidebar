@@ -1,30 +1,27 @@
-/**
- * @typedef {never
- *   | 'light'
- *   | 'heavy'
- *   | 'double'
- *   | 'light2Dash'
- *   | 'heavy2Dash'
- *   | 'light3Dash'
- *   | 'heavy3Dash'
- *   | 'light4Dash'
- *   | 'heavy4Dash'
- * } LineType
- *
- * @typedef {{
- *   codePoint: number;
- *   up?: LineType;
- *   down?: LineType;
- *   left?: LineType;
- *   right?: LineType;
- *   arced?: boolean;
- *   forward?: boolean;
- *   backward?: boolean;
- * }} Line
- *
- * @type {Line[]}
- */
-export const charNames = [
+/* eslint-env browser */
+type LineType =
+	| 'light'
+	| 'heavy'
+	| 'double'
+	| 'light2Dash'
+	| 'heavy2Dash'
+	| 'light3Dash'
+	| 'heavy3Dash'
+	| 'light4Dash'
+	| 'heavy4Dash';
+
+interface Line {
+	codePoint: number;
+	up?: LineType;
+	down?: LineType;
+	left?: LineType;
+	right?: LineType;
+	arced?: boolean;
+	forward?: boolean;
+	backward?: boolean;
+}
+
+export const charNames: Line[] = [
 	{codePoint: 0x20},
 	{codePoint: 0x20, forward: false, backward: false},
 	{codePoint: 0x25_00, left: 'light', right: 'light'},
