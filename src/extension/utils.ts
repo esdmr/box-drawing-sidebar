@@ -1,4 +1,4 @@
-import type { Disposable } from 'vscode';
+import type {Disposable} from 'vscode';
 
 class AssertionError extends Error {
 	name = 'AssertionError';

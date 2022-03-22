@@ -1,7 +1,7 @@
 import * as vscode from 'vscode';
-import type {ResourceResolver} from '../resource';
-import {assert} from '../utils';
-import {WebviewViewProvider} from './base';
+import type {ResourceResolver} from '../resource.js';
+import {assert} from '../utils.js';
+import {WebviewViewProvider} from './base.js';
 
 export class BoxDrawingViewProvider extends WebviewViewProvider {
 	private lastActiveTextEditor = vscode.window.activeTextEditor;
@@ -51,7 +51,7 @@ export class BoxDrawingViewProvider extends WebviewViewProvider {
 			this.lastWebview = undefined;
 		});
 
-		super.resolveWebviewView(webviewView);
+		await super.resolveWebviewView(webviewView);
 	}
 
 	private async activeTextEditorChanged() {

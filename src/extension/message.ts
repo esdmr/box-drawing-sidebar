@@ -1,5 +1,5 @@
 import * as vscode from 'vscode';
-import {assert, disposeAll} from './utils';
+import {assert, disposeAll} from './utils.js';
 
 interface Message {
 	[key: string]: unknown;

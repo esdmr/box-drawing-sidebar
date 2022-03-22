@@ -1,6 +1,6 @@
 import * as vscode from 'vscode';
-import {BoxDrawingViewProvider} from './webview-providers/box-drawing';
-import {ResourceResolver} from './resource';
+import {BoxDrawingViewProvider} from './webview-providers/box-drawing.js';
+import {ResourceResolver} from './resource.js';
 
 export function activate(context: vscode.ExtensionContext) {
 	console.log('[box-drawing-sidebar]', 'Activated');

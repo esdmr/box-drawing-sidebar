@@ -1,7 +1,7 @@
 import * as vscode from 'vscode';
-import {MessageHandler} from '../message';
-import type {ResourceResolver} from '../resource';
-import {disposeAll} from '../utils';
+import {MessageHandler} from '../message.js';
+import type {ResourceResolver} from '../resource.js';
+import {disposeAll} from '../utils.js';
 
 const textDecoder = new TextDecoder();
 

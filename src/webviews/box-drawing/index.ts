@@ -1,6 +1,6 @@
 /* eslint-env browser */
-import vscode from './vscode';
-import {MessageHandler} from './message';
+import vscode from './vscode.js';
+import {MessageHandler} from './message.js';
 
 const messageHandler = new MessageHandler();
 
