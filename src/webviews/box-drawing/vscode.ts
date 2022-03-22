@@ -1,4 +1,3 @@
-/* eslint-env browser */
 import parentLogger from './logger.js';
 
 const logger = parentLogger.nest('vscodeApiShim');

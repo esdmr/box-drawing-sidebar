@@ -1,4 +1,3 @@
-/* eslint-env browser */
 interface Message {
 	[key: string]: unknown;
 	type: string;

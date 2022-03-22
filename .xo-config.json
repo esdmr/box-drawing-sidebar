@@ -1,0 +1,16 @@
+{
+	"overrides": [
+		{
+			"files": "src/extension/**",
+			"env": ["node", "worker"]
+		},
+		{
+			"files": "rollup/**",
+			"env": ["node"]
+		},
+		{
+			"files": "src/webviews/**",
+			"env": ["browser"]
+		}
+	]
+}
