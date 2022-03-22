@@ -9,7 +9,7 @@ export function activate(context: vscode.ExtensionContext) {
 	const boxDrawing = new BoxDrawingViewProvider(resources);
 
 	context.subscriptions.push(vscode.window.registerWebviewViewProvider(
-		'box-drawing-sidebar.box-drawing',
+		`box-drawing-sidebar.${boxDrawing.id}`,
 		boxDrawing,
 	), boxDrawing);
 }

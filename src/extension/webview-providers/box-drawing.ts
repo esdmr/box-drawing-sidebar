@@ -1,18 +1,14 @@
 import * as vscode from 'vscode';
-import {MessageHandler} from '../message';
 import type {ResourceResolver} from '../resource';
-import {assert, disposeAll} from '../utils';
+import {assert} from '../utils';
+import {WebviewViewProvider} from './base';
 
-export class BoxDrawingViewProvider extends vscode.Disposable implements vscode.WebviewViewProvider {
+export class BoxDrawingViewProvider extends WebviewViewProvider {
 	private lastActiveTextEditor = vscode.window.activeTextEditor;
 	private lastWebview: vscode.Webview | undefined = undefined;
-	private readonly messageHandler = new MessageHandler();
-	private readonly disposables: vscode.Disposable[] = [this.messageHandler];
 
-	constructor(private readonly resources: ResourceResolver) {
-		super(() => {
-			disposeAll(this.disposables);
-		});
+	constructor(resources: ResourceResolver) {
+		super('box-drawing', resources);
 
 		vscode.window.onDidChangeActiveTextEditor(async editor => {
 			console.log('[box-drawing-sidebar]', '[box-drawing]', 'Active text editor was changed');
@@ -44,11 +40,6 @@ export class BoxDrawingViewProvider extends vscode.Disposable implements vscode.
 		const {webview} = webviewView;
 		this.lastWebview = webview;
 
-		webview.options = {
-			localResourceRoots: [this.resources.getResourceUri()],
-			enableScripts: true,
-		};
-
 		console.log('[box-drawing-sidebar]', '[box-drawing]', 'Webview was resolved');
 
 		webviewView.onDidChangeVisibility(() => {
@@ -60,31 +51,7 @@ export class BoxDrawingViewProvider extends vscode.Disposable implements vscode.
 			this.lastWebview = undefined;
 		});
 
-		webview.onDidReceiveMessage(result => {
-			this.messageHandler.fire(result);
-		});
-
-		const timeout = setTimeout(() => {
-			webview.html = 'Failed to load webview html file.';
-			console.error('[box-drawing-sidebar]', '[box-drawing]', 'Failed to load webview html file:', 'Timed out');
-		}, 250);
-
-		const textDecoder = new TextDecoder();
-
-		try {
-			const array = await vscode.workspace.fs.readFile(this.resources.getResourceUri('box-drawing', 'index.html'));
-
-			webview.html = textDecoder.decode(array)
-				.replace(/\${\s*\.\s*cspSource\s*}/g, webview.cspSource)
-				// eslint-disable-next-line no-template-curly-in-string
-				.replace(/\b(href|src)="\.\//g, '$1="${.resources}/')
-				.replace(/\${\s*\.\s*resources\s*}/g, webview.asWebviewUri(this.resources.getResourceUri('box-drawing')).toString());
-		} catch (error: unknown) {
-			webview.html = 'Failed to load webview html file.';
-			console.error('[box-drawing-sidebar]', '[box-drawing]', 'Failed to load webview html file:', error);
-		} finally {
-			clearTimeout(timeout);
-		}
+		super.resolveWebviewView(webviewView);
 	}
 
 	private async activeTextEditorChanged() {
