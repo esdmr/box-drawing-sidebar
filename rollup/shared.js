@@ -1,5 +1,8 @@
+import process from 'node:process';
 import esbuild from 'rollup-plugin-esbuild';
 import {nodeResolve} from '@rollup/plugin-node-resolve';
+
+export const isProduction = process.env.NODE_ENV === 'production';
 
 /** @type {import('rollup').RollupOptions} */
 const config = {
@@ -9,7 +12,7 @@ const config = {
 			extensions: ['.ts', '.mjs', '.js', '.json', '.node'],
 		}),
 		esbuild({
-			minify: true,
+			minify: isProduction,
 			target: 'es2020',
 		}),
 	],

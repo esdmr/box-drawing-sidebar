@@ -1,4 +1,4 @@
-import sharedConfig from './shared.js';
+import sharedConfig, {isProduction} from './shared.js';
 
 /** @type {import('rollup').RollupOptions} */
 const config = {
@@ -6,7 +6,7 @@ const config = {
 	output: {
 		file: 'build/extension.js',
 		format: 'cjs',
-		compact: true,
+		compact: isProduction,
 		generatedCode: 'es2015',
 		interop: 'auto',
 		sourcemap: true,

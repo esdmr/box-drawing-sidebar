@@ -1,4 +1,4 @@
-import sharedConfig from './shared.js';
+import sharedConfig, {isProduction} from './shared.js';
 
 /** @type {import('rollup').RollupOptions} */
 const config = {
@@ -8,7 +8,7 @@ const config = {
 	output: {
 		dir: 'resources',
 		entryFileNames: '[name]/index.js',
-		compact: true,
+		compact: isProduction,
 		generatedCode: 'es2015',
 		interop: 'auto',
 		sourcemap: true,
