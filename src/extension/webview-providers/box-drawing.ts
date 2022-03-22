@@ -11,13 +11,13 @@ export class BoxDrawingViewProvider extends WebviewViewProvider {
 		super('box-drawing', resources);
 
 		vscode.window.onDidChangeActiveTextEditor(async editor => {
-			console.log('[box-drawing-sidebar]', '[box-drawing]', 'Active text editor was changed');
+			this.logger.log('Active text editor was changed');
 			this.lastActiveTextEditor = editor;
 			await this.activeTextEditorChanged();
 		}, this.disposables);
 
 		this.messageHandler.getEvent('loaded')(async () => {
-			console.log('[box-drawing-sidebar]', '[box-drawing]', 'Webview is loaded');
+			this.logger.log('Webview is loaded');
 			await this.activeTextEditorChanged();
 		});
 
@@ -31,7 +31,7 @@ export class BoxDrawingViewProvider extends WebviewViewProvider {
 
 				await editor.insertSnippet(new vscode.SnippetString(snippet));
 			} catch (error: unknown) {
-				console.error('[box-drawing-sidebar]', '[box-drawing]', 'Failed to insert a snippet:', error);
+				this.logger.error('Failed to insert a snippet:', error);
 			}
 		});
 	}
@@ -40,14 +40,14 @@ export class BoxDrawingViewProvider extends WebviewViewProvider {
 		const {webview} = webviewView;
 		this.lastWebview = webview;
 
-		console.log('[box-drawing-sidebar]', '[box-drawing]', 'Webview was resolved');
+		this.logger.log('Webview was resolved');
 
 		webviewView.onDidChangeVisibility(() => {
-			console.log('[box-drawing-sidebar]', '[box-drawing]', 'Webview changed visibility');
+			this.logger.log('Webview changed visibility');
 		});
 
 		webviewView.onDidDispose(() => {
-			console.log('[box-drawing-sidebar]', '[box-drawing]', 'Webview was disposed');
+			this.logger.log('Webview was disposed');
 			this.lastWebview = undefined;
 		});
 

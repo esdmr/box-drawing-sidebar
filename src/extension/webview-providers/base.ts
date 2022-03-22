@@ -2,12 +2,14 @@ import vscode from 'vscode';
 import {MessageHandler} from '../message.js';
 import type {ResourceResolver} from '../resource.js';
 import {disposeAll} from '../utils.js';
+import parentLogger, {type Logger} from '../../logger.js';
 
 const textDecoder = new TextDecoder();
 
 export abstract class WebviewViewProvider extends vscode.Disposable implements vscode.WebviewViewProvider {
 	protected readonly messageHandler = new MessageHandler();
 	protected readonly disposables: vscode.Disposable[] = [this.messageHandler];
+	protected readonly logger: Logger;
 
 	constructor(
 		readonly id: string,
@@ -16,6 +18,8 @@ export abstract class WebviewViewProvider extends vscode.Disposable implements v
 		super(() => {
 			disposeAll(this.disposables);
 		});
+
+		this.logger = parentLogger.nest(id);
 	}
 
 	async resolveWebviewView(webviewView: vscode.WebviewView) {
@@ -32,7 +36,7 @@ export abstract class WebviewViewProvider extends vscode.Disposable implements v
 
 		const timeout = setTimeout(() => {
 			webview.html = 'Failed to load webview html file.';
-			console.error('[box-drawing-sidebar]', `[${this.id}]`, 'Failed to load webview html file:', 'Timed out');
+			this.logger.error('Failed to load webview html file:', 'Timed out');
 		}, 250);
 
 		try {
@@ -45,7 +49,7 @@ export abstract class WebviewViewProvider extends vscode.Disposable implements v
 				.replace(/\${\s*\.\s*resources\s*}/g, webview.asWebviewUri(this.resources.getResourceUri(this.id)).toString());
 		} catch (error: unknown) {
 			webview.html = 'Failed to load webview html file.';
-			console.error('[box-drawing-sidebar]', `[${this.id}]`, 'Failed to load webview html file:', error);
+			this.logger.error('Failed to load webview html file:', error);
 		} finally {
 			clearTimeout(timeout);
 		}

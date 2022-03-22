@@ -1,9 +1,10 @@
 import vscode from 'vscode';
+import logger from '../logger.js';
 import {BoxDrawingViewProvider} from './webview-providers/box-drawing.js';
 import {ResourceResolver} from './resource.js';
 
 export function activate(context: vscode.ExtensionContext) {
-	console.log('[box-drawing-sidebar]', 'Activated');
+	logger.log('Activated');
 
 	const resources = new ResourceResolver(context.extensionUri);
 	const boxDrawing = new BoxDrawingViewProvider(resources);
@@ -15,5 +16,5 @@ export function activate(context: vscode.ExtensionContext) {
 }
 
 export function deactivate() {
-	console.log('[box-drawing-sidebar]', 'Deactivated');
+	logger.log('Deactivated');
 }

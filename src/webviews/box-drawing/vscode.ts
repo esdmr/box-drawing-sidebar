@@ -1,4 +1,8 @@
 /* eslint-env browser */
+import parentLogger from './logger.js';
+
+const logger = parentLogger.nest('vscodeApiShim');
+
 interface VsCodeApi {
 	postMessage(message: unknown, transfer?: unknown): void;
 	getState(): void;
@@ -13,13 +17,13 @@ declare global {
 
 const vscode: VsCodeApi = {
 	postMessage(message: unknown, transfer: unknown = undefined) {
-		console.log('[box-drawing-sidebar]', '[box-drawing]', '[vscodeApiShim.postMessage]', message, transfer);
+		logger.log('postMessage', message, transfer);
 	},
 	getState() {
-		console.log('[box-drawing-sidebar]', '[box-drawing]', '[vscodeApiShim.getState]');
+		logger.log('getState');
 	},
 	setState(newState: unknown) {
-		console.log('[box-drawing-sidebar]', '[box-drawing]', '[vscodeApiShim.setState]', newState);
+		logger.log('setState', newState);
 	},
 	onDidReceiveMessage(handler: (data: any) => void) {
 		window.addEventListener('message', ({data}) => {
