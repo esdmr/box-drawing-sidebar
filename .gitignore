@@ -1,3 +1,5 @@
+.vscode
+!.vscode/launch.json
 .vscode-test-web/
 *.vsix
 build
