@@ -1,4 +1,4 @@
-import * as vscode from 'vscode';
+import vscode from 'vscode';
 import {MessageHandler} from '../message.js';
 import type {ResourceResolver} from '../resource.js';
 import {disposeAll} from '../utils.js';

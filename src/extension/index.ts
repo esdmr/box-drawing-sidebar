@@ -1,4 +1,4 @@
-import * as vscode from 'vscode';
+import vscode from 'vscode';
 import {BoxDrawingViewProvider} from './webview-providers/box-drawing.js';
 import {ResourceResolver} from './resource.js';
 

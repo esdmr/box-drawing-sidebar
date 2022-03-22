@@ -1,4 +1,4 @@
-import * as vscode from 'vscode';
+import vscode from 'vscode';
 import {assert, disposeAll} from './utils.js';
 
 interface Message {

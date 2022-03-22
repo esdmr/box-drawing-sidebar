@@ -5,6 +5,7 @@
 		"strict": true,
 		"moduleResolution": "node",
 		"noEmit": true,
-		"importsNotUsedAsValues": "error"
+		"importsNotUsedAsValues": "error",
+		"allowSyntheticDefaultImports": true
 	}
 }

@@ -1,4 +1,4 @@
-import * as vscode from 'vscode';
+import vscode from 'vscode';
 import type {ResourceResolver} from '../resource.js';
 import {assert} from '../utils.js';
 import {WebviewViewProvider} from './base.js';
