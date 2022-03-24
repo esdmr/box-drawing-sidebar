@@ -12,7 +12,6 @@
 	"license": "MIT",
 	"author": "Saeed M Rad <esdmr0@gmail.com> (https://github.com/esdmr)",
 	"publisher": "esdmr",
-	"type": "module",
 	"browser": "./build/extension.js",
 	"scripts": {
 		"build": "pnpm run build:extension && pnpm run build:webviews",
