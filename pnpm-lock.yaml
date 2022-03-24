@@ -1,6 +1,6 @@
 lockfileVersion: 5.3
 
-packageExtensionsChecksum: 8381ec6668a830d89d827d640a385305
+packageExtensionsChecksum: c6269d4d2b8f53749e9a6ff01733da3a
 
 specifiers:
   '@changesets/cli': 2.21.1
