@@ -26,8 +26,6 @@ export class MessageHandler extends EventTarget {
 }
 
 export interface MessageHandler extends EventTarget {
-	// eslint-disable-next-line @typescript-eslint/ban-types
 	addEventListener(type: string, callback: CustomEventListenerLike<CustomEvent> | null, options?: AddEventListenerOptions | boolean): void;
-	// eslint-disable-next-line @typescript-eslint/ban-types
 	removeEventListener(type: string, callback: CustomEventListenerLike<CustomEvent> | null, options?: AddEventListenerOptions | boolean): void;
 }
