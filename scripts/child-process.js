@@ -9,6 +9,7 @@ export async function spawn(command, args) {
 	return new Promise((resolve, reject) => {
 		const process = child.spawn(command, args, {
 			stdio: 'inherit',
+			cwd: new URL('..', import.meta.url),
 		});
 
 		let done = false;

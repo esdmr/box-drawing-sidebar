@@ -1,10 +1,10 @@
 #!/usr/bin/env node
 import {spawn} from './child-process.js';
 
-await spawn('pnpm', ['run', 'prepack']);
+await spawn('node', ['scripts/prepack.js']);
 
 try {
-	await spawn('pnpm', ['run', 'build']);
+	await spawn('pnpx', ['vsce', 'package', '--no-dependencies']);
 } finally {
-	await spawn('pnpm', ['run', 'postpack']);
+	await spawn('node', ['scripts/postpack.js']);
 }

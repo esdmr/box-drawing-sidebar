@@ -25,7 +25,7 @@
 		"lint:fix": "pnpm run lint -- --fix",
 		"prepack": "node scripts/prepack.js",
 		"postpack": "node scripts/postpack.js",
-		"package": "pnpm run prepack && vsce package --no-dependencies && pnpm run postpack",
+		"package": "node scripts/package.js",
 		"vscode:prepublish": "echo You may not run vsce directly. Use: pnpm run package && exit 1",
 		"watch": "pnpm run build:extension -- --watch & pnpm run build:webviews -- --watch"
 	},
