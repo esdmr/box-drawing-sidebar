@@ -2,7 +2,6 @@
 !.vscode/launch.json
 .vscode-test-web/
 *.vsix
-build
 node_modules
 out
 resources/**/*.js

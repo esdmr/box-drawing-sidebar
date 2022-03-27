@@ -4,7 +4,7 @@ import sharedConfig, {isProduction} from './shared.js';
 const config = {
 	input: 'src/extension/index.ts',
 	output: {
-		file: 'build/extension.js',
+		file: 'resources/extension.js',
 		format: 'cjs',
 		compact: isProduction,
 		generatedCode: 'es2015',

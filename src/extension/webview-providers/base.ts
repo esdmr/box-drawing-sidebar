@@ -26,7 +26,7 @@ export abstract class WebviewViewProvider extends vscode.Disposable implements v
 		const {webview} = webviewView;
 
 		webview.options = {
-			localResourceRoots: [this.resources.getResourceUri()],
+			localResourceRoots: [this.resources.getResourceUri(this.id)],
 			enableScripts: true,
 		};
 

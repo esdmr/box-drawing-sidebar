@@ -12,7 +12,7 @@
 	"license": "MIT",
 	"author": "Saeed M Rad <esdmr0@gmail.com> (https://github.com/esdmr)",
 	"publisher": "esdmr",
-	"browser": "./build/extension.js",
+	"browser": "./resources/extension.js",
 	"scripts": {
 		"build": "pnpm run build:extension && pnpm run build:webviews",
 		"build:extension": "rollup --config rollup/extension.js",
