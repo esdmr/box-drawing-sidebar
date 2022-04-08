@@ -36,7 +36,7 @@ export class BoxDrawingViewProvider extends WebviewViewProvider {
 		});
 	}
 
-	async resolveWebviewView(webviewView: vscode.WebviewView) {
+	override async resolveWebviewView(webviewView: vscode.WebviewView) {
 		const {webview} = webviewView;
 		this.lastWebview = webview;
 

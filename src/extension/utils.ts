@@ -1,7 +1,7 @@
 import type {Disposable} from 'vscode';
 
 class AssertionError extends Error {
-	name = 'AssertionError';
+	override name = 'AssertionError';
 }
 
 export function assert(condition: boolean, message: string): asserts condition {
