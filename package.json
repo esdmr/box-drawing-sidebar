@@ -61,6 +61,7 @@
 		"@types/vscode": "1.65.0",
 		"@typescript/lib-dom": "npm:@types/web@0.0.58",
 		"esbuild": "0.14.27",
+		"execa": "6.1.0",
 		"rollup": "2.70.1",
 		"rollup-plugin-esbuild": "4.8.2",
 		"vsce": "2.7.0",

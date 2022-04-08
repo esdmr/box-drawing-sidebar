@@ -1,10 +1,15 @@
 #!/usr/bin/env node
-import {spawn} from './child-process.js';
+import {execaCommand} from 'execa';
 
-await spawn('node', ['scripts/prepack.js']);
+/** @type {import('execa').Options} */
+const options = {
+	stdio: 'inherit',
+};
+
+await execaCommand('node scripts/prepack.js', options);
 
 try {
-	await spawn('pnpx', ['vsce', 'package', '--no-dependencies']);
+	await execaCommand('pnpx vsce package --no-dependencies', options);
 } finally {
-	await spawn('node', ['scripts/postpack.js']);
+	await execaCommand('node scripts/postpack.js', options);
 }

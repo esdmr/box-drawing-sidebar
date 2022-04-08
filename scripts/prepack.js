@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 import fs from 'node:fs/promises';
 import process from 'node:process';
-import {spawn} from './child-process.js';
+import {execaCommand} from 'execa';
 
 /**
  * @param {Record<string, any>} packageMeta
@@ -19,14 +19,19 @@ function processPackageJson(packageMeta) {
 	return packageMeta;
 }
 
+/** @type {import('execa').Options} */
+const options = {
+	stdio: 'inherit',
+};
+
 console.log('pnpm install');
-await spawn('pnpm', ['install']);
+await execaCommand('pnpm install --prod=false', options);
 
 console.log('pnpm run build');
-await spawn('pnpm', ['run', 'build']);
+await execaCommand('pnpm run build', options);
 
 console.log('pnpm run lint');
-await spawn('pnpm', ['run', 'lint']);
+await execaCommand('pnpm run lint', options);
 
 const packageJson = await fs.readFile('package.json', 'utf8');
 const newPackageJson = JSON.stringify(processPackageJson(JSON.parse(packageJson)));
