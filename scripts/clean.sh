@@ -1,3 +1,3 @@
 #!/usr/bin/env bash
 
-rm -fv resources/**.js resources/**.js.map
+rm -fv resources/{*,**/*}.{css,css.map,js,js.map}
