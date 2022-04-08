@@ -43,10 +43,10 @@ export abstract class WebviewViewProvider extends vscode.Disposable implements v
 			const array = await vscode.workspace.fs.readFile(this.resources.getResourceUri(this.id, 'index.html'));
 
 			webview.html = textDecoder.decode(array)
-				.replace(/\${\s*\.\s*cspSource\s*}/gu, webview.cspSource)
+				.replace(/\${\s*\.\s*cspSource\s*}/g, webview.cspSource)
 				// eslint-disable-next-line no-template-curly-in-string
-				.replace(/\b(href|src)="\.\//gu, '$1="${.resources}/')
-				.replace(/\${\s*\.\s*resources\s*}/gu, webview.asWebviewUri(this.resources.getResourceUri(this.id)).toString());
+				.replace(/\b(href|src)="\.\//g, '$1="${.resources}/')
+				.replace(/\${\s*\.\s*resources\s*}/g, webview.asWebviewUri(this.resources.getResourceUri(this.id)).toString());
 		} catch (error: unknown) {
 			webview.html = 'Failed to load webview html file.';
 			this.logger.error('Failed to load webview html file:', error);
