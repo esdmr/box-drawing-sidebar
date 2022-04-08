@@ -16,7 +16,9 @@
 	"scripts": {
 		"build": "pnpm run build:extension && pnpm run build:webviews",
 		"build:extension": "rollup --config rollup/extension.js",
-		"build:webviews": "rollup --config rollup/webviews.js",
+		"build:webviews": "pnpm run build:webviews:js && pnpm run build:webviews:css",
+		"build:webviews:js": "rollup --config rollup/webviews.js",
+		"build:webviews:css": "node scripts/build-webviews-css.js",
 		"changeset": "changeset",
 		"changeset:version": "changeset version",
 		"clean": "bash scripts/clean.sh",
