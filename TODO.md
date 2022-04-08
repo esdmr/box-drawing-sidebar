@@ -8,9 +8,6 @@
 - Support general ASCII arts.
 - Provide a way to send a parameter from the extension to webview, specially to
   avoid the initial first flash.
-- `resources/box-drawing.js`:
-
-  ```js
-  // FIXME: There might be a better way to do this (possibly in the
-  // extension)?
-  ```
+- Pass `workbench.reduceMotion` as a parameter to webviews.
+- `resources/box-drawing.js`: There might be a better way to do this (possibly
+  in the extension)?
