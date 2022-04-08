@@ -29,7 +29,11 @@
 		"postpack": "node scripts/postpack.js",
 		"package": "node scripts/package.js",
 		"vscode:prepublish": "echo You may not run vsce directly. Use: pnpm run package && exit 1",
-		"watch": "pnpm run build:extension -- --watch & pnpm run build:webviews -- --watch"
+		"watch": "pnpm run watch:extension & pnpm run watch:webviews",
+		"watch:extension": "pnpm run build:extension -- --watch",
+		"watch:webviews": "pnpm run watch:webviews:js && pnpm run watch:webviews:css",
+		"watch:webviews:js": "pnpm run build:webviews:js -- --watch",
+		"watch:webviews:css": "pnpm run build:webviews:css -- --watch"
 	},
 	"contributes": {
 		"views": {
