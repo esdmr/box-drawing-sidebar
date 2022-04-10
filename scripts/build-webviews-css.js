@@ -1,6 +1,6 @@
 #!/usr/bin/env node
-import esbuild from 'esbuild';
 import process from 'node:process';
+import esbuild from 'esbuild';
 
 const isProduction = process.env.NODE_ENV === 'production';
 const watch = process.argv.includes('--watch');
