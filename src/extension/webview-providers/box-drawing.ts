@@ -1,11 +1,11 @@
 import vscode from 'vscode';
 import type {ResourceResolver} from '../resource.js';
 import {assert} from '../utils.js';
+import type Types from '../../webviews/box-drawing/types.js';
 import {WebviewViewProvider} from './base.js';
 
-export class BoxDrawingViewProvider extends WebviewViewProvider {
+export class BoxDrawingViewProvider extends WebviewViewProvider<Types> {
 	private lastActiveTextEditor = vscode.window.activeTextEditor;
-	private lastWebview: vscode.Webview | undefined = undefined;
 
 	constructor(resources: ResourceResolver) {
 		super('box-drawing', resources);
@@ -36,26 +36,9 @@ export class BoxDrawingViewProvider extends WebviewViewProvider {
 		});
 	}
 
-	override async resolveWebviewView(webviewView: vscode.WebviewView) {
-		const {webview} = webviewView;
-		this.lastWebview = webview;
-
-		this.logger.log('Webview was resolved');
-
-		webviewView.onDidChangeVisibility(() => {
-			this.logger.log('Webview changed visibility');
-		});
-
-		webviewView.onDidDispose(() => {
-			this.logger.log('Webview was disposed');
-			this.lastWebview = undefined;
-		});
-
-		await super.resolveWebviewView(webviewView);
-	}
 
 	private async activeTextEditorChanged() {
-		await this.lastWebview?.postMessage({
+		await this.postMessage({
 			type: 'onDidChangeActiveTextEditor',
 			isTextEditorActive: this.lastActiveTextEditor !== undefined,
 		});

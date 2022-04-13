@@ -12,7 +12,7 @@ function isMessage(value: any): value is Message {
 		&& typeof value.type === 'string';
 }
 
-export class MessageHandler extends vscode.Disposable {
+export class MessageHandler<Outbound> extends vscode.Disposable {
 	private readonly map = new Map<string, vscode.EventEmitter<Message>>();
 
 	constructor() {
@@ -21,7 +21,7 @@ export class MessageHandler extends vscode.Disposable {
 		});
 	}
 
-	getEvent(command: string) {
+	getEvent<K extends Extract<keyof Outbound, string>>(command: K) {
 		let emitter = this.map.get(command);
 
 		if (!emitter) {
@@ -29,7 +29,7 @@ export class MessageHandler extends vscode.Disposable {
 			this.map.set(command, emitter);
 		}
 
-		return emitter.event;
+		return emitter.event as vscode.Event<Outbound[K] & {type: K}>;
 	}
 
 	fire(message: unknown) {

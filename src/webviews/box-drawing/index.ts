@@ -1,7 +1,12 @@
 import vscode from './vscode.js';
 import {MessageHandler} from './message.js';
+import type Types from './types.js';
 
-const messageHandler = new MessageHandler();
+const messageHandler = new MessageHandler<Types['inbound']>();
+
+function postMessage<K extends Extract<keyof Types['outbound'], string>>(message: Types['outbound'][K] & {type: K}) {
+	vscode.postMessage(message);
+}
 
 const dialog = document.querySelector<HTMLDialogElement>('#no-open-documents');
 
@@ -86,7 +91,7 @@ for (const item of chars) {
 			cmdElement.textContent = char === ' ' ? '␠' : char;
 
 			cmdElement.addEventListener('click', () => {
-				vscode.postMessage({
+				postMessage({
 					type: 'insertSnippet',
 					snippet: char,
 				});
@@ -97,7 +102,7 @@ for (const item of chars) {
 
 // TODO: Provide a way to send a parameter from the extension to webview,
 // specially to avoid the initial first flash.
-vscode.postMessage({
+postMessage({
 	type: 'loaded',
 });
 

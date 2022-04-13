@@ -9,11 +9,8 @@ function isMessage(value: any): value is Message {
 		&& typeof value.type === 'string';
 }
 
-export type CustomEventListenerLike<T extends Event> =
-	| ((event: T) => void)
-	| {handleEvent(event: T): void};
-
-export class MessageHandler extends EventTarget {
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+export class MessageHandler<Inbound> extends EventTarget {
 	fire(message: any) {
 		if (!isMessage(message)) {
 			throw new TypeError('Message does not have a valid type');
@@ -25,7 +22,11 @@ export class MessageHandler extends EventTarget {
 	}
 }
 
-export interface MessageHandler extends EventTarget {
-	addEventListener(type: string, callback: CustomEventListenerLike<CustomEvent> | null, options?: AddEventListenerOptions | boolean): void;
-	removeEventListener(type: string, callback: CustomEventListenerLike<CustomEvent> | null, options?: AddEventListenerOptions | boolean): void;
+export type CustomEventListenerLike<T extends Event> =
+	| ((event: T) => void)
+	| {handleEvent(event: T): void};
+
+export interface MessageHandler<Inbound> extends EventTarget {
+	addEventListener<K extends Extract<keyof Inbound, string>>(type: K, callback: CustomEventListenerLike<CustomEvent<Inbound[K] & {type: K}>> | null, options?: AddEventListenerOptions | boolean): void;
+	removeEventListener<K extends Extract<keyof Inbound, string>>(type: K, callback: CustomEventListenerLike<CustomEvent<Inbound[K] & {type: K}>> | null, options?: AddEventListenerOptions | boolean): void;
 }

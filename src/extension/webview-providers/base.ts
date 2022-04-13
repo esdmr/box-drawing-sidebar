@@ -6,10 +6,16 @@ import parentLogger, {type Logger} from '../../logger.js';
 
 const textDecoder = new TextDecoder();
 
-export abstract class WebviewViewProvider extends vscode.Disposable implements vscode.WebviewViewProvider {
-	protected readonly messageHandler = new MessageHandler();
+interface WebviewTypes {
+	outbound: unknown;
+	inbound: unknown;
+}
+
+export abstract class WebviewViewProvider<T extends WebviewTypes> extends vscode.Disposable implements vscode.WebviewViewProvider {
+	protected readonly messageHandler = new MessageHandler<T['outbound']>();
 	protected readonly disposables: vscode.Disposable[] = [this.messageHandler];
 	protected readonly logger: Logger;
+	protected lastWebview: vscode.Webview | undefined = undefined;
 
 	constructor(
 		readonly id: string,
@@ -24,6 +30,7 @@ export abstract class WebviewViewProvider extends vscode.Disposable implements v
 
 	async resolveWebviewView(webviewView: vscode.WebviewView) {
 		const {webview} = webviewView;
+		this.lastWebview = webview;
 
 		webview.options = {
 			localResourceRoots: [this.resources.getResourceUri(this.id)],
@@ -32,6 +39,17 @@ export abstract class WebviewViewProvider extends vscode.Disposable implements v
 
 		webview.onDidReceiveMessage(result => {
 			this.messageHandler.fire(result);
+		});
+
+		this.logger.log('Webview was resolved');
+
+		webviewView.onDidChangeVisibility(() => {
+			this.logger.log('Webview changed visibility');
+		});
+
+		webviewView.onDidDispose(() => {
+			this.logger.log('Webview was disposed');
+			this.lastWebview = undefined;
 		});
 
 		const timeout = setTimeout(() => {
@@ -53,5 +71,9 @@ export abstract class WebviewViewProvider extends vscode.Disposable implements v
 		} finally {
 			clearTimeout(timeout);
 		}
+	}
+
+	protected postMessage<K extends Extract<keyof T['inbound'], string>>(message: T['inbound'][K] & {type: K}) {
+		return this.lastWebview?.postMessage(message);
 	}
 }
