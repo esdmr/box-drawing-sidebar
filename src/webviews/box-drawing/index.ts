@@ -1,5 +1,5 @@
-import vscode from './vscode.js';
-import {MessageHandler} from './message.js';
+import vscode from '../vscode.js';
+import {MessageHandler} from '../message.js';
 import type Types from './types.js';
 
 const messageHandler = new MessageHandler<Types['inbound']>();
