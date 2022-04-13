@@ -36,7 +36,6 @@ export class BoxDrawingViewProvider extends WebviewViewProvider<Types> {
 		});
 	}
 
-
 	private async activeTextEditorChanged() {
 		await this.postMessage({
 			type: 'onDidChangeActiveTextEditor',
