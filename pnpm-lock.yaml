@@ -11,7 +11,7 @@ specifiers:
   esbuild: 0.14.27
   execa: 6.1.0
   rollup: 2.70.1
-  rollup-plugin-esbuild: 4.8.2
+  rollup-plugin-esbuild: 4.9.1
   vsce: 2.7.0
   xo: 0.48.0
 
@@ -24,7 +24,7 @@ devDependencies:
   esbuild: 0.14.27
   execa: 6.1.0
   rollup: 2.70.1
-  rollup-plugin-esbuild: 4.8.2_esbuild@0.14.27+rollup@2.70.1
+  rollup-plugin-esbuild: 4.9.1_esbuild@0.14.27+rollup@2.70.1
   vsce: 2.7.0
   xo: 0.48.0
 
@@ -3466,8 +3466,8 @@ packages:
       glob: 7.2.0
     dev: true
 
-  /rollup-plugin-esbuild/4.8.2_esbuild@0.14.27+rollup@2.70.1:
-    resolution: {integrity: sha512-wsaYNOjzTb6dN1qCIZsMZ7Q0LWiPJklYs2TDI8vJA2LUbvtPUY+17TC8C0vSat3jPMInfR9XWKdA7ttuwkjsGQ==}
+  /rollup-plugin-esbuild/4.9.1_esbuild@0.14.27+rollup@2.70.1:
+    resolution: {integrity: sha512-qn/x7Wz9p3Xnva99qcb+nopH0d2VJwVnsxJTGEg+Sh2Z3tqQl33MhOwzekVo1YTKgv+yAmosjcBRJygMfGrtLw==}
     engines: {node: '>=12'}
     peerDependencies:
       esbuild: '>=0.10.1'
