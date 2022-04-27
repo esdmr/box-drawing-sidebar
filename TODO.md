@@ -1,5 +1,6 @@
 # To do
 
+- Check if the editor is read-only.
 - Improve accessibility.
 - Provide a canvas-based editor.
 - Provide a command-based solution.
