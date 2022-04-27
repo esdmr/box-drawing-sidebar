@@ -81,7 +81,8 @@
 	"capabilities": {
 		"untrustedWorkspaces": {
 			"supported": true
-		}
+		},
+		"virtualWorkspaces": true
 	},
 	"packageManager": "pnpm@6.32.3",
 	"pnpm": {
