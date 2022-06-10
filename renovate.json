@@ -90,7 +90,8 @@
 			"matchPackageNames": [
 				"@microsoft/api-documenter",
 				"@microsoft/api-extractor",
-				"katex"
+				"katex",
+				"@types/vscode"
 			],
 			"enabled": false
 		},
