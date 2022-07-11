@@ -9,7 +9,6 @@ function isMessage(value: any): value is Message {
 		&& typeof value.type === 'string';
 }
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 export class MessageHandler<Inbound> extends EventTarget {
 	fire(message: any) {
 		if (!isMessage(message)) {

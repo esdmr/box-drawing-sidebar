@@ -1,15 +1,6 @@
 {
 	"rules": {
 		"no-await-in-loop": "off",
-		"node/no-unsupported-features/es-syntax": [
-			"error",
-			{
-				"ignores": [
-					"modules",
-					"dynamicImport"
-				]
-			}
-		],
 		"unicorn/prefer-json-parse-buffer": [
 			"off"
 		]
