@@ -24,14 +24,14 @@ const options = {
 	stdio: 'inherit',
 };
 
-console.log('pnpm install');
-await execaCommand('pnpm install --prod=false', options);
+console.log('corepack pnpm install');
+await execaCommand('corepack pnpm install --prod=false', options);
 
-console.log('pnpm run build');
-await execaCommand('pnpm run build', options);
+console.log('corepack pnpm run build');
+await execaCommand('corepack pnpm run build', options);
 
-console.log('pnpm run lint');
-await execaCommand('pnpm run lint', options);
+console.log('corepack pnpm run lint');
+await execaCommand('corepack pnpm run lint', options);
 
 const packageJson = await fs.readFile('package.json', 'utf8');
 const newPackageJson = JSON.stringify(processPackageJson(JSON.parse(packageJson)));

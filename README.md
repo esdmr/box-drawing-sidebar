@@ -6,7 +6,6 @@
 [license]: https://github.com/esdmr/box-drawing-sidebar/blob/master/LICENSE
 [vscode]: https://nodejs.org/en/download/current
 [node]: https://nodejs.org/en/download/current
-[pnpm]: https://pnpm.io
 
 Easily insert Box Drawing characters via a sidebar!
 
@@ -15,16 +14,13 @@ Easily insert Box Drawing characters via a sidebar!
 This project requires [Node.JS][node] version 16 minimum. Ensure that you have
 installed the correct version of Node.JS by running `node --version`.
 
-This project recommends [pnpm][pnpm] version 6. Ensure that you have installed
-the correct version of pnpm by running `pnpm --version`.
-
 The following snippet will download, install, and build the source from GitHub:
 
 ```sh
 git clone https://github.com/esdmr/box-drawing-sidebar.git
 cd box-drawing-sidebar
-pnpm install
-pnpm run build
+corepack pnpm install
+corepack pnpm run build
 ```
 
 After building, you can use VSCode to launch it.

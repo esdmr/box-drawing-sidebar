@@ -75,7 +75,6 @@
 	},
 	"engines": {
 		"node": ">=16",
-		"pnpm": "7",
 		"vscode": "^1.65.0"
 	},
 	"capabilities": {
