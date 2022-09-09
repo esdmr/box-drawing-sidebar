@@ -11,7 +11,7 @@ specifiers:
   esbuild: 0.14.27
   execa: 6.1.0
   rollup: 2.70.1
-  rollup-plugin-esbuild: 4.9.1
+  rollup-plugin-esbuild: 4.10.1
   vsce: 2.10.0
   xo: 0.51.0
 
@@ -24,7 +24,7 @@ devDependencies:
   esbuild: 0.14.27
   execa: 6.1.0
   rollup: 2.70.1
-  rollup-plugin-esbuild: 4.9.1_esbuild@0.14.27+rollup@2.70.1
+  rollup-plugin-esbuild: 4.10.1_esbuild@0.14.27+rollup@2.70.1
   vsce: 2.10.0
   xo: 0.51.0
 
@@ -993,18 +993,6 @@ packages:
 
   /debug/3.2.7:
     resolution: {integrity: sha512-CFjzYYAi4ThfiQvizrFQevTTXHtnCqWfe7x1AhgEscTz6ZbLbfoLRLPugTQyBth6f8ZERVUSyWHFD/7Wu4t1XQ==}
-    peerDependencies:
-      supports-color: '*'
-    peerDependenciesMeta:
-      supports-color:
-        optional: true
-    dependencies:
-      ms: 2.1.2
-    dev: true
-
-  /debug/4.3.3:
-    resolution: {integrity: sha512-/zxw5+vh1Tfv+4Qn7a5nsbcJKPaSvCDhojn6FEl9vupwK2VCSDtEiEtqr8DFtzYFOdz63LBkxec7DYuc2jon6Q==}
-    engines: {node: '>=6.0'}
     peerDependencies:
       supports-color: '*'
     peerDependenciesMeta:
@@ -3552,15 +3540,15 @@ packages:
       glob: 7.2.0
     dev: true
 
-  /rollup-plugin-esbuild/4.9.1_esbuild@0.14.27+rollup@2.70.1:
-    resolution: {integrity: sha512-qn/x7Wz9p3Xnva99qcb+nopH0d2VJwVnsxJTGEg+Sh2Z3tqQl33MhOwzekVo1YTKgv+yAmosjcBRJygMfGrtLw==}
+  /rollup-plugin-esbuild/4.10.1_esbuild@0.14.27+rollup@2.70.1:
+    resolution: {integrity: sha512-/ymcRB283zjFp1JTBXO8ekxv0c9vRc2L6OTljghsLthQ4vqeDSDWa9BVz1tHiVrx6SbUnUpDPLC0K/MXK7j5TA==}
     engines: {node: '>=12'}
     peerDependencies:
       esbuild: '>=0.10.1'
       rollup: ^1.20.0 || ^2.0.0
     dependencies:
       '@rollup/pluginutils': 4.1.2
-      debug: 4.3.3
+      debug: 4.3.4
       es-module-lexer: 0.9.3
       esbuild: 0.14.27
       joycon: 3.1.1
