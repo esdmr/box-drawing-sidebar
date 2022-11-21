@@ -61,7 +61,7 @@
 		"onView:box-drawing-sidebar.box-drawing"
 	],
 	"devDependencies": {
-		"@changesets/cli": "2.25.1",
+		"@changesets/cli": "2.25.2",
 		"@rollup/plugin-node-resolve": "13.3.0",
 		"@types/node": "16.18.3",
 		"@types/vscode": "1.65.0",
