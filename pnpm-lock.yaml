@@ -12,7 +12,7 @@ specifiers:
   execa: 6.1.0
   rollup: 2.79.1
   rollup-plugin-esbuild: 4.10.3
-  vsce: 2.14.0
+  vsce: 2.15.0
   xo: 0.51.0
 
 devDependencies:
@@ -25,7 +25,7 @@ devDependencies:
   execa: 6.1.0
   rollup: 2.79.1
   rollup-plugin-esbuild: 4.10.3_esbuild@0.15.16+rollup@2.79.1
-  vsce: 2.14.0
+  vsce: 2.15.0
   xo: 0.51.0
 
 packages:
@@ -4107,9 +4107,10 @@ packages:
       spdx-expression-parse: 3.0.1
     dev: true
 
-  /vsce/2.14.0:
-    resolution: {integrity: sha512-LH0j++sHjcFNT++SYcJ86Zyw49GvyoTRfzYJGmaCgfzTyL7MyMhZeVEnj9K9qKh/m1N3/sdWWNxP+PFS/AvWiA==}
+  /vsce/2.15.0:
+    resolution: {integrity: sha512-P8E9LAZvBCQnoGoizw65JfGvyMqNGlHdlUXD1VAuxtvYAaHBKLBdKPnpy60XKVDAkQCfmMu53g+gq9FM+ydepw==}
     engines: {node: '>= 14'}
+    deprecated: vsce has been renamed to @vscode/vsce. Install using @vscode/vsce instead.
     hasBin: true
     dependencies:
       azure-devops-node-api: 11.1.1
