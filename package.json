@@ -83,7 +83,7 @@
 		},
 		"virtualWorkspaces": true
 	},
-	"packageManager": "pnpm@7.24.0",
+	"packageManager": "pnpm@7.24.2",
 	"pnpm": {
 		"packageExtensions": {
 			"eslint-import-resolver-webpack": {
