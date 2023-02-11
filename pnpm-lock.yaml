@@ -7,7 +7,7 @@ specifiers:
   '@rollup/plugin-node-resolve': 13.3.0
   '@types/node': 16.18.11
   '@types/vscode': 1.65.0
-  '@typescript/lib-dom': npm:@types/web@0.0.88
+  '@typescript/lib-dom': npm:@types/web@0.0.89
   esbuild: 0.16.17
   execa: 6.1.0
   rollup: 2.79.1
@@ -20,7 +20,7 @@ devDependencies:
   '@rollup/plugin-node-resolve': 13.3.0_rollup@2.79.1
   '@types/node': 16.18.11
   '@types/vscode': 1.65.0
-  '@typescript/lib-dom': /@types/web/0.0.88
+  '@typescript/lib-dom': /@types/web/0.0.89
   esbuild: 0.16.17
   execa: 6.1.0
   rollup: 2.79.1
@@ -611,8 +611,8 @@ packages:
     resolution: {integrity: sha512-wQhExnh2nEzpjDMSKhUvnNmz3ucpd3E+R7wJkOhBNK3No6fG3VUdmVmMOKD0A8NDZDDDiQcLNxe3oGmX5SjJ5w==}
     dev: true
 
-  /@types/web/0.0.88:
-    resolution: {integrity: sha512-tyHSEGw+CxJIt7IbyrZ+S+sAApY9QhjEpC7I695r09dP2hKzYnTjM5vg81e+zJUadFKH2tZO/hu83HdShQ5fBQ==}
+  /@types/web/0.0.89:
+    resolution: {integrity: sha512-GmYzEKEi5I2aUVcGMcNDMLOZ3N5f6Vmaly9rr7ZL9b8zxc8KFZU5h2Wqzxgx6/ztj9+Eq2t4jDeWGW18N5UeOQ==}
     dev: true
 
   /@typescript-eslint/eslint-plugin/5.33.1_c5065bd34f709275249f21cd6c008046:
