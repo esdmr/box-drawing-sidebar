@@ -63,7 +63,7 @@
 	"devDependencies": {
 		"@changesets/cli": "2.26.0",
 		"@rollup/plugin-node-resolve": "13.3.0",
-		"@types/node": "16.18.11",
+		"@types/node": "16.18.12",
 		"@types/vscode": "1.65.0",
 		"@typescript/lib-dom": "npm:@types/web@0.0.90",
 		"esbuild": "0.16.17",
