@@ -5,7 +5,7 @@ packageExtensionsChecksum: c6269d4d2b8f53749e9a6ff01733da3a
 specifiers:
   '@changesets/cli': 2.26.1
   '@rollup/plugin-node-resolve': 13.3.0
-  '@types/node': 16.18.28
+  '@types/node': 16.18.29
   '@types/vscode': 1.65.0
   '@typescript/lib-dom': npm:@types/web@0.0.99
   esbuild: 0.16.17
@@ -18,7 +18,7 @@ specifiers:
 devDependencies:
   '@changesets/cli': 2.26.1
   '@rollup/plugin-node-resolve': 13.3.0_rollup@2.79.1
-  '@types/node': 16.18.28
+  '@types/node': 16.18.29
   '@types/vscode': 1.65.0
   '@typescript/lib-dom': /@types/web/0.0.99
   esbuild: 0.16.17
@@ -585,8 +585,8 @@ packages:
     resolution: {integrity: sha512-BzcaRsnFuznzOItW1WpQrDHM7plAa7GIDMZ6b5pnMbkqEtM/6WCOhvZar39oeMQP79gwvFUWjjptE7/KGcNqFg==}
     dev: true
 
-  /@types/node/16.18.28:
-    resolution: {integrity: sha512-SNMfiPqsiPoYfmyi+2qnDO4nZyMIOCab/CW+Slcml0lhIzkOizYzWtt/A7tgB3TSitd+YJKi8fSC2Cpm/VCp7A==}
+  /@types/node/16.18.29:
+    resolution: {integrity: sha512-cal+XTYF4JBwG82kw3m9ktTOyUj7GXcO9i2o+t49y/OF+3asYfpHqTROF1UbV91e71g/UB5wNeL5hfqPthzp8Q==}
     dev: true
 
   /@types/normalize-package-data/2.4.1:
@@ -600,7 +600,7 @@ packages:
   /@types/resolve/1.17.1:
     resolution: {integrity: sha512-yy7HuzQhj0dhGpD8RLXSZWEkLsV9ibvxvi6EiJ3bkqLAO1RGo0WbkWQiwpRlSFymTJRz0d3k5LM3kkx8ArDbLw==}
     dependencies:
-      '@types/node': 16.18.28
+      '@types/node': 16.18.29
     dev: true
 
   /@types/semver/6.2.3:
